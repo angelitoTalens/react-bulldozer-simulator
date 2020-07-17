@@ -33,7 +33,7 @@ function BlockComponent(props: BlockComponentProps) {
         }
 
         return (
-            <Col className="block">
+            <Col className="block current-block">
                 <FontAwesomeIcon icon={directionIcon}/>
             </Col>
         );

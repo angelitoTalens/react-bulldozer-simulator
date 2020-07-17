@@ -16,6 +16,11 @@ $image-size: 100%;
     width: $block-size;
 }
 
+.block.current-block {
+    font-size: 40px;
+    color: #4285F4;
+}
+
 .step-settings-container {
     padding-top: 20px;
     padding-left: 7px;
