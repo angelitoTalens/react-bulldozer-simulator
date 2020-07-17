@@ -49,11 +49,13 @@ type LandVisitSummary = {
 
 class Simulator extends React.Component<SimulatorProps, SimulatorState> {
 
-    state:SimulatorState;
+    state: SimulatorState;
+    controlComponentRef: React.RefObject<ControlComponent>;
 
     constructor(props:SimulatorProps) {
         super(props);
         this.state = this.initState();
+        this.controlComponentRef = React.createRef(); 
     }
 
     initState():SimulatorState {
@@ -268,10 +270,14 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
 
     handleRestart() {
         let state = this.initState();
-        
+
         state.initialGridMap = this.state.initialGridMap;
         this.copyGridMap(this.state.initialGridMap, state.gridMap);
         state.status = SimulationStatus.Ongoing;
+
+        if (this.controlComponentRef.current) {
+            this.controlComponentRef.current.resetStepSetting();
+        }
         
         this.setState(state);
     }
@@ -303,6 +309,7 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
                 onClickDown={()=> this.handleArrows(Direction.Down)}
                 onUserTerminate={()=> this.handleUserTerminate()}
                 onStepSettingChange={(event)=> this.handleStepSettingChange(event)}
+                ref={this.controlComponentRef}
             />
         );
     }

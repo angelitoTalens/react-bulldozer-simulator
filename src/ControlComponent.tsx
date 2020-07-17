@@ -34,6 +34,12 @@ class ControlComponent extends React.Component<ControlComponentProps, ControlCom
         }
     }
 
+    resetStepSetting() {
+        let state = this.state;
+        state.stepSetting = 1;
+        this.setState(state);
+    }
+
     handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         let state = this.state;
         state.stepSetting = event.target.value ? Number(event.target.value) : NaN;
