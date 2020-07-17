@@ -5,6 +5,12 @@ export enum Direction {
     Right = "R",
 }
 
+export enum Commands {
+    RotateLeft = "L",
+    RotateRight = "R",
+    Advance = "A"
+}
+
 export type Position = {
     X: number, 
     Y: number

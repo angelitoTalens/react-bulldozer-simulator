@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/GridComponent.scss"
 
 import BlockComponent from "./BlockComponent"
-import { LandType, Position } from "./EnumTypes"
+import { LandType, Position, Direction } from "./EnumTypes"
 
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Col";
@@ -10,12 +10,13 @@ import Row from "react-bootstrap/Col";
 type GridComponentProps = {
     grid: LandType[][];
     position: Position;
+    direction: Direction;
 }
 
 class GridComponent extends React.Component<GridComponentProps> {
 
-    renderBlock(t:LandType, c:boolean, key:string) {
-        return (<BlockComponent landType={t} currentPos={c} key={key}/>);
+    renderBlock(t:LandType, c:boolean, d:Direction, key:string) {
+        return (<BlockComponent landType={t} currentPos={c} direction={d} key={key}/>);
     }
 
     renderGridMap() {
@@ -27,7 +28,7 @@ class GridComponent extends React.Component<GridComponentProps> {
             for (const block of row) {
                 const isCurrent = ((this.props.position.X === x) && ((this.props.position.Y === y)));
                 const key = y + "," + x;
-                rowBlocks.push(this.renderBlock(block, isCurrent, key));
+                rowBlocks.push(this.renderBlock(block, isCurrent, this.props.direction, key));
                 x++;
             }
             gridMap.push(<Row className="grid-row" key={y}>{rowBlocks}</Row>);

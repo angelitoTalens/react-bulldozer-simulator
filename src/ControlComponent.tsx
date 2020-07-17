@@ -2,7 +2,7 @@ import React from "react";
 import "./styles/ControlComponent.scss"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft, faArrowUp, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faRedoAlt, faUndoAlt, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -11,10 +11,9 @@ import Button from "react-bootstrap/Button";
 
 
 type ControlComponentProps = {
-    onClickLeft: (event: React.MouseEvent<HTMLButtonElement>) => void,
-    onClickRight: (event: React.MouseEvent<HTMLButtonElement>) => void,
-    onClickUp: (event: React.MouseEvent<HTMLButtonElement>) => void,
-    onClickDown: (event: React.MouseEvent<HTMLButtonElement>) => void,
+    onClickRotateLeft: (event: React.MouseEvent<HTMLButtonElement>) => void,
+    onClickRotateRight: (event: React.MouseEvent<HTMLButtonElement>) => void,
+    onClickAdvance: (event: React.MouseEvent<HTMLButtonElement>) => void,
     onUserTerminate: (event: React.MouseEvent<HTMLButtonElement>) => void,
     onStepSettingChange: (event: React.FocusEvent<HTMLInputElement>) => void,
 }
@@ -49,37 +48,28 @@ class ControlComponent extends React.Component<ControlComponentProps, ControlCom
     render() {
         return (
             <Container className="control-container">
-                <Container className="arrow-button-container">
+                <Container className="control-button-container">
                     <Row>
                         <Col></Col>
                         <Col md="auto">
-                            <Button variant="success" size="lg" onClick={this.props.onClickUp}>
-                                <FontAwesomeIcon icon={faArrowUp}/>
+                            <Button variant="success" size="lg" onClick={this.props.onClickAdvance}>
+                                <FontAwesomeIcon icon={faPlayCircle}/>
                             </Button>
                         </Col>
                         <Col></Col>
                     </Row>
                     <Row>
                         <Col md="auto">
-                            <Button variant="success" size="lg" onClick={this.props.onClickLeft}>
-                                <FontAwesomeIcon icon={faArrowLeft}/>
+                            <Button variant="success" size="lg" onClick={this.props.onClickRotateLeft}>
+                                <FontAwesomeIcon icon={faUndoAlt}/>
                             </Button>
                         </Col>
                         <Col></Col>
                         <Col md="auto">
-                            <Button variant="success" size="lg" onClick={this.props.onClickRight}>
-                                <FontAwesomeIcon icon={faArrowRight}/>
+                            <Button variant="success" size="lg" onClick={this.props.onClickRotateRight}>
+                                <FontAwesomeIcon icon={faRedoAlt}/>
                             </Button>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col></Col>
-                        <Col md="auto">
-                            <Button variant="success" size="lg" onClick={this.props.onClickDown}>
-                                <FontAwesomeIcon icon={faArrowDown}/>
-                            </Button>
-                        </Col>
-                        <Col></Col> 
                     </Row>
                     <Row>
                         <Container className="step-settings-container">

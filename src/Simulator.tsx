@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/Simulator.scss"
 
-import { Direction, LandType, Position, SimulationStatus, TabKeys } from "./EnumTypes"
+import { Direction, LandType, Position, SimulationStatus, TabKeys, Commands } from "./EnumTypes"
 import GridComponent from "./GridComponent"
 import TotalCostComponent  from "./TotalCostComponent"
 import FuelUsageComponent from "./FuelUsageComponent"
@@ -10,7 +10,7 @@ import ControlComponent from "./ControlComponent"
 import FileInputComponent from "./FileInputComponent"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -24,7 +24,7 @@ import Tab from "react-bootstrap/Tab"
 type SimulatorProps = {}
 
 type Movements = {
-    direction: Direction;
+    command: Commands;
     steps: number;
 }
 
@@ -38,6 +38,7 @@ type SimulatorState = {
     paintDamageCount: number;
     stepSetting: number;
     tabKey: TabKeys;
+    direction: Direction;
 }
 
 type LandVisitSummary = {
@@ -69,6 +70,7 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
             paintDamageCount: 0,
             stepSetting: 1,
             tabKey: TabKeys.Simulation,
+            direction: Direction.Right,
         }
         return state;
     }
@@ -186,8 +188,64 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
         }
 
         state.movementHistory.push({
-            direction: direction, 
+            command: Commands.Advance, 
             steps: steps
+        });
+
+        this.setState(state);
+    }
+
+    handleRotateLeft() {
+
+        if (this.state.position.X === -1) {
+            return;
+        }
+
+        let state = this.state;
+        if (state.direction === Direction.Up) {
+            state.direction = Direction.Left;
+        }
+        else if (state.direction === Direction.Left) {
+            state.direction = Direction.Down;
+        }
+        else if (state.direction === Direction.Down) {
+            state.direction = Direction.Right;
+        }
+        else if (state.direction === Direction.Right) {
+            state.direction = Direction.Up;
+        }
+
+        state.movementHistory.push({
+            command: Commands.RotateLeft, 
+            steps: 0
+        });
+
+        this.setState(state);
+    }
+
+    handleRotateRight() {
+
+        if (this.state.position.X === -1) {
+            return;
+        }
+
+        let state = this.state;
+        if (state.direction === Direction.Up) {
+            state.direction = Direction.Right;
+        }
+        else if (state.direction === Direction.Right) {
+            state.direction = Direction.Down;
+        }
+        else if (state.direction === Direction.Down) {
+            state.direction = Direction.Left;
+        }
+        else if (state.direction === Direction.Left) {
+            state.direction = Direction.Up;
+        }
+
+        state.movementHistory.push({
+            command: Commands.RotateRight, 
+            steps: 0
         });
 
         this.setState(state);
@@ -295,7 +353,11 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
     renderGrid() {
         return (
             <Container className="grid-container">
-                <GridComponent grid={this.state.gridMap} position={this.state.position}/>
+                <GridComponent 
+                    grid={this.state.gridMap}
+                    position={this.state.position}
+                    direction={this.state.direction}
+                />
             </Container>
         );
     }
@@ -303,10 +365,9 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
     renderControlComponent() {        
         return (
             <ControlComponent
-                onClickLeft={()=> this.handleArrows(Direction.Left)}
-                onClickRight={()=> this.handleArrows(Direction.Right)}
-                onClickUp={()=> this.handleArrows(Direction.Up)}
-                onClickDown={()=> this.handleArrows(Direction.Down)}
+                onClickRotateLeft={()=> this.handleRotateLeft()}
+                onClickRotateRight={()=> this.handleRotateRight()}
+                onClickAdvance={()=> this.handleArrows(this.state.direction)}
                 onUserTerminate={()=> this.handleUserTerminate()}
                 onStepSettingChange={(event)=> this.handleStepSettingChange(event)}
                 ref={this.controlComponentRef}
@@ -350,7 +411,8 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
     renderMovementHistory() {
         let movements: string[] = [];
         for (let move of this.state.movementHistory) {
-            movements.push(move.direction + move.steps + ", ");
+            (move.command === Commands.Advance) ? movements.push(move.command + move.steps + ", ") :
+                                                  movements.push(move.command + ", ")
         }
         return (
             <Container>
@@ -399,7 +461,7 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
                 <Card style={{ width: '15rem' }}>
                     <Card.Body>
                         <Card.Title>Notes</Card.Title>
-                            <div>- Only accept <FontAwesomeIcon icon={faArrowRight}/> as 1st input </div>
+                            <div>- Only accept <FontAwesomeIcon icon={faPlayCircle}/> as 1st input </div>
                             <div>- Simulation terminates if:</div>
                             <ul>
                                 <li>Out of bounds</li>
