@@ -1,0 +1,28 @@
+$block-size: 60px;
+$image-size: 100%;
+
+.block {
+    background: #e7e7e7;
+    border: 1px solid #999;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: $block-size;
+    height: $block-size;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: $block-size;
+}
+
+.step-settings-container {
+    padding-top: 20px;
+    padding-left: 7px;
+    padding-right: 5px;
+}
+
+img {
+    max-width: $image-size;
+    max-height: $image-size;
+}

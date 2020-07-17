@@ -1,0 +1,29 @@
+nav {
+    position: relative;
+    width: 100%;
+    text-align: left;
+}
+
+.simulation-container {
+    padding-top: 40px;
+    min-width: 1200px;
+    overflow: auto;
+}
+
+.grid-container {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.summary-container {
+    padding-top: 20px;
+}
+
+
+.legend-container {
+    padding-top: 20px;
+}
+
+.notes-container {
+    padding-top: 20px;
+}
