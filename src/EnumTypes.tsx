@@ -38,3 +38,7 @@ export enum TabKeys {
     Results = "Results"
 }
 
+export type Cost = {
+    quantity: number;
+    value: number;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/Simulator.scss"
 
-import { Direction, LandType, Position, SimulationStatus, TabKeys, Commands } from "./EnumTypes"
+import { Direction, LandType, Position, SimulationStatus, TabKeys, Commands, Cost } from "./EnumTypes"
 import GridComponent from "./GridComponent"
 import TotalCostComponent  from "./TotalCostComponent"
 import FuelUsageComponent from "./FuelUsageComponent"
@@ -377,12 +377,33 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
 
     renderFuelUsage() {
         const summary = this.calculateLandVisits(this.state.landTypeHistory);
+
+        const clearPlainLandFuelUsage: Cost = {
+            quantity: summary.clearPlainLand,
+            value: summary.clearPlainLand
+        }
+
+        const clearRockyLandFuelUsage: Cost = {
+            quantity: summary.clearRockyLand,
+            value: summary.clearRockyLand * 2
+        }
+
+        const clearTreePlantedLandFuelUsage: Cost = {
+            quantity: summary.clearTreePlantedLand,
+            value: summary.clearTreePlantedLand * 2
+        }
+
+        const revisitClearedLandFuelUsage: Cost = {
+            quantity: summary.revisitClearedLand,
+            value: summary.revisitClearedLand
+        }
+
         return(
             <FuelUsageComponent
-                clearPlainLand={summary.clearPlainLand}
-                clearRockyLand={summary.clearRockyLand}
-                clearTreePlantedLand={summary.clearTreePlantedLand}
-                revisitClearedLand={summary.revisitClearedLand}
+                clearPlainLand={clearPlainLandFuelUsage}
+                clearRockyLand={clearRockyLandFuelUsage}
+                clearTreePlantedLand={clearTreePlantedLandFuelUsage}
+                revisitClearedLand={revisitClearedLandFuelUsage}
             />
         );
     }
@@ -396,14 +417,39 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
                 clearProtectedTreeCount++;
             }
         }
-       
+      
+        const totalFuel: Cost = {
+            quantity: this.calculateTotalFuelUnits(landVisits),
+            value: this.calculateTotalFuelUnits(landVisits)
+        }
+
+        const communication: Cost = {
+            quantity: this.state.movementHistory.length,
+            value: this.state.movementHistory.length
+        }
+
+        const unclearedBlock: Cost = {
+            quantity: this.calculateUnclearedBlock(this.state.gridMap),
+            value: this.calculateUnclearedBlock(this.state.gridMap) * 3
+        }
+
+        const clearProtectedTree: Cost = {
+            quantity: clearProtectedTreeCount,
+            value: clearProtectedTreeCount * 10
+        }
+
+        const paintDamage: Cost = {
+            quantity: this.state.paintDamageCount,
+            value: this.state.paintDamageCount * 2
+        }
+
         return (
             <TotalCostComponent 
-                totalFuelUnits={this.calculateTotalFuelUnits(landVisits)}
-                communicationCount={this.state.movementHistory.length}
-                unclearedBlockCount={this.calculateUnclearedBlock(this.state.gridMap)}
-                clearProtectedTreeCount={clearProtectedTreeCount}
-                paintDamageCount = {this.state.paintDamageCount}
+                totalFuel={totalFuel}
+                communication={communication}
+                unclearedBlock={unclearedBlock}
+                clearProtectedTree={clearProtectedTree}
+                paintDamage = {paintDamage}
             />
         );
     }

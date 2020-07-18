@@ -2,30 +2,26 @@ import React from "react";
 import "./styles/FuelUsageComponent.scss"
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import { Cost } from "./EnumTypes";
 
 
 type FuelUsageComponentProps = {
-     clearPlainLand: number;
-     clearRockyLand: number;
-     clearTreePlantedLand: number;
-     revisitClearedLand: number;
+     clearPlainLand: Cost;
+     clearRockyLand: Cost;
+     clearTreePlantedLand: Cost;
+     revisitClearedLand: Cost;
 }
 
 function FuelUsageComponent(props: FuelUsageComponentProps) {
-    const totalVisit = props.clearPlainLand +
-                       props.clearRockyLand +
-                       props.clearTreePlantedLand +
-                       props.revisitClearedLand;
-
-    const clearPlainLandFuelUsage = props.clearPlainLand;
-    const clearRockyLandFuelUsage = props.clearRockyLand * 2;
-    const clearTreePlantedLandFuelUsage = props.clearTreePlantedLand * 2;
-    const revisitClearedLandFuelUsage = props.revisitClearedLand;
+    const totalVisit = props.clearPlainLand.quantity +
+                       props.clearRockyLand.quantity +
+                       props.clearTreePlantedLand.quantity +
+                       props.revisitClearedLand.quantity;
     
-    const totalFuelUsage = clearPlainLandFuelUsage +
-                           clearRockyLandFuelUsage +
-                           clearTreePlantedLandFuelUsage +
-                           revisitClearedLandFuelUsage;
+    const totalFuelUsage = props.clearPlainLand.value +
+                           props.clearRockyLand.value +
+                           props.clearTreePlantedLand.value +
+                           props.revisitClearedLand.value;
     
     return (
         <Container className="fuel-usage-container">
@@ -40,23 +36,23 @@ function FuelUsageComponent(props: FuelUsageComponentProps) {
                 <tbody>
                     <tr>
                         <td>Clearing Plain Land</td>
-                        <td>{props.clearPlainLand}</td>
-                        <td>{clearPlainLandFuelUsage}</td>
+                        <td>{props.clearPlainLand.quantity}</td>
+                        <td>{props.clearPlainLand.value}</td>
                     </tr>
                     <tr>
                         <td>Clearing Rocky Land</td>
-                        <td>{props.clearRockyLand}</td>
-                        <td>{clearRockyLandFuelUsage}</td>
+                        <td>{props.clearRockyLand.quantity}</td>
+                        <td>{props.clearRockyLand.value}</td>
                     </tr>
                     <tr>
                         <td>Clearing Tree Planted Land</td>
-                        <td>{props.clearTreePlantedLand}</td>
-                        <td>{clearTreePlantedLandFuelUsage}</td>
+                        <td>{props.clearTreePlantedLand.quantity}</td>
+                        <td>{props.clearTreePlantedLand.value}</td>
                     </tr>
                     <tr>
                         <td>Revisiting Cleared Land</td>
-                        <td>{props.revisitClearedLand}</td>
-                        <td>{revisitClearedLandFuelUsage}</td>
+                        <td>{props.revisitClearedLand.quantity}</td>
+                        <td>{props.revisitClearedLand.value}</td>
                     </tr>
                     <tr>
                         <td><b>Total</b></td>
