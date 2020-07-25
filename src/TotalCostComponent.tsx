@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { Cost } from "./EnumTypes";
 
 
-type TotalCostComponentProps = {
+export type TotalCostComponentProps = {
     totalFuel: Cost;
     communication: Cost;
     unclearedBlock: Cost;

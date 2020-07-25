@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 import { Cost } from "./EnumTypes";
 
 
-type FuelUsageComponentProps = {
+export type FuelUsageComponentProps = {
      clearPlainLand: Cost;
      clearRockyLand: Cost;
      clearTreePlantedLand: Cost;

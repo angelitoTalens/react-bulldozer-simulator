@@ -90,10 +90,10 @@ exports[`Test SummaryComponent 1`] = `
                 Clearing Plain Land
               </td>
               <td>
-                2
+                1
               </td>
               <td>
-                2
+                10
               </td>
             </tr>
             <tr>
@@ -104,7 +104,7 @@ exports[`Test SummaryComponent 1`] = `
                 1
               </td>
               <td>
-                2
+                20
               </td>
             </tr>
             <tr>
@@ -115,7 +115,7 @@ exports[`Test SummaryComponent 1`] = `
                 1
               </td>
               <td>
-                2
+                20
               </td>
             </tr>
             <tr>
@@ -123,10 +123,10 @@ exports[`Test SummaryComponent 1`] = `
                 Revisiting Cleared Land
               </td>
               <td>
-                0
+                1
               </td>
               <td>
-                0
+                10
               </td>
             </tr>
             <tr>
@@ -142,7 +142,7 @@ exports[`Test SummaryComponent 1`] = `
               </td>
               <td>
                 <b>
-                  6
+                  60
                 </b>
               </td>
             </tr>
@@ -196,10 +196,10 @@ exports[`Test SummaryComponent 1`] = `
                 Communication Overhead
               </td>
               <td>
-                6
+                4
               </td>
               <td>
-                6
+                40
               </td>
             </tr>
             <tr>
@@ -207,10 +207,10 @@ exports[`Test SummaryComponent 1`] = `
                 Fuel Usage
               </td>
               <td>
-                6
+                4
               </td>
               <td>
-                6
+                40
               </td>
             </tr>
             <tr>
@@ -218,10 +218,10 @@ exports[`Test SummaryComponent 1`] = `
                 Uncleared Squares
               </td>
               <td>
-                4
+                1
               </td>
               <td>
-                12
+                10
               </td>
             </tr>
             <tr>
@@ -240,10 +240,10 @@ exports[`Test SummaryComponent 1`] = `
                 Paint Damage Cost
               </td>
               <td>
-                0
+                2
               </td>
               <td>
-                0
+                20
               </td>
             </tr>
             <tr>
@@ -255,7 +255,7 @@ exports[`Test SummaryComponent 1`] = `
               <td />
               <td>
                 <b>
-                  24
+                  110
                 </b>
               </td>
             </tr>

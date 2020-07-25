@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles/Simulator.scss"
 
-import { Direction, LandType, Position, SimulationStatus, TabKeys, Commands, Movements } from "./EnumTypes"
+import { Direction, LandType, Position, SimulationStatus, TabKeys, Commands, Movements, LandVisitSummary } from "./EnumTypes"
 import GridComponent from "./GridComponent"
 import NavBarComponent from "./NavBarComponent"
 import ControlComponent from "./ControlComponent"
@@ -17,6 +17,8 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Tabs from "react-bootstrap/Tabs"
 import Tab from "react-bootstrap/Tab"
+import { FuelUsageComponentProps } from "./FuelUsageComponent";
+import { TotalCostComponentProps } from "./TotalCostComponent";
 
 
 type SimulatorProps = {}
@@ -307,15 +309,129 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
         );
     }
 
+    calculateTotalFuelUnits(summary: LandVisitSummary): number {
+        let total = summary.clearPlainLand +
+                    summary.revisitClearedLand +
+                    summary.clearRockyLand * 2 +
+                    summary.clearTreePlantedLand * 2;
+        
+        return total;
+    }
+
+    calculateLandVisits(landTypeHistory: LandType[]): LandVisitSummary {
+        let summary: LandVisitSummary = {
+            clearPlainLand: 0,
+            revisitClearedLand: 0,
+            clearRockyLand: 0,
+            clearTreePlantedLand: 0,
+        };
+
+        for (let landType of landTypeHistory) {
+            switch(landType) {
+                case LandType.Plain:
+                    summary.clearPlainLand++;
+                    break;
+                case LandType.Cleared:
+                    summary.revisitClearedLand++;
+                    break;
+                case LandType.Rocky:
+                    summary.clearRockyLand++;
+                    break;
+                case LandType.TreePlanted:
+                    summary.clearTreePlantedLand++;
+                    break;
+                default: break;
+            }
+        }
+        return summary;
+    }
+
+    calculateUnclearedBlock(grid: LandType[][]): number {
+        let total = 0;
+        for (let rowBlock of grid) {
+            for (let block of rowBlock) {
+                switch (block) {
+                    case LandType.Plain:
+                    case LandType.Rocky:
+                    case LandType.TreePlanted:
+                        total++;
+                        break;
+                    default: break;
+                }
+            }
+        }
+        return total;
+    }
+
+    calculateFuelUsage() {
+        const summary = this.calculateLandVisits(this.state.landTypeHistory);
+        const fuelUsageProps: FuelUsageComponentProps = {
+            clearPlainLand: {
+                quantity: summary.clearPlainLand,
+                value: summary.clearPlainLand
+            },
+            clearRockyLand: {
+                quantity: summary.clearRockyLand,
+                value: summary.clearRockyLand * 2
+            },
+            clearTreePlantedLand: {
+                quantity: summary.clearTreePlantedLand,
+                value: summary.clearTreePlantedLand * 2
+            },
+            revisitClearedLand: {
+                quantity: summary.revisitClearedLand,
+                value: summary.revisitClearedLand
+            },
+        }
+
+        return fuelUsageProps;
+    }
+
+    calculateTotalCost() {
+        const landVisits = this.calculateLandVisits(this.state.landTypeHistory);
+
+        let clearProtectedTreeCount = 0;
+        for (let landType of this.state.landTypeHistory) {
+            if (landType === LandType.Protected) {
+                clearProtectedTreeCount++;
+            }
+        }
+
+        const totalCostProps: TotalCostComponentProps = {
+            totalFuel: {
+                quantity: this.calculateTotalFuelUnits(landVisits),
+                value: this.calculateTotalFuelUnits(landVisits)
+            },
+            communication: {
+                quantity: this.state.movementHistory.length,
+                value: this.state.movementHistory.length
+            },
+            unclearedBlock: {
+                quantity: this.calculateUnclearedBlock(this.state.gridMap),
+                value: this.calculateUnclearedBlock(this.state.gridMap) * 3
+            },
+            clearProtectedTree: {
+                quantity: clearProtectedTreeCount,
+                value: clearProtectedTreeCount * 10
+            },
+            paintDamage: {
+                quantity: this.state.paintDamageCount,
+                value: this.state.paintDamageCount * 2
+            }
+        }
+
+        return totalCostProps;
+    }
+
 
     renderSummary(message:string) {
+
         return (
             <SummaryComponent 
                 message={message}
-                landTypeHistory={this.state.landTypeHistory}
                 movementHistory={this.state.movementHistory}
-                gridMap={this.state.gridMap}
-                paintDamageCount={this.state.paintDamageCount}
+                fuelUsageProps={this.calculateFuelUsage()}
+                totalCostProps={this.calculateTotalCost()}
             />
         );
     }
