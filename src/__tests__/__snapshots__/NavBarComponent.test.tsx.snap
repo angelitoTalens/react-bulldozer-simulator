@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test NavBarComponent 1`] = `
+<nav
+  className="navbar navbar-expand navbar-dark bg-dark"
+>
+  <span
+    className="navbar-brand"
+  >
+    Site Clearing Simulator
+  </span>
+  <div
+    className="navbar-nav"
+    onKeyDown={[Function]}
+  >
+    <a
+      className="nav-link"
+      data-rb-event-key={null}
+      href="#"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+    >
+      Restart
+    </a>
+  </div>
+</nav>
+`;

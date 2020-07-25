@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test FileInputComponent 1`] = `
+<div
+  className="fuel-usage-container container"
+>
+  <table
+    className="table table-sm table-striped table-hover"
+  >
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "width": "40%",
+            }
+          }
+        >
+          Activity
+        </th>
+        <th
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        >
+          Visits
+        </th>
+        <th
+          style={
+            Object {
+              "width": "30%",
+            }
+          }
+        >
+          Fuel Usage (fuel units)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Clearing Plain Land
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          10
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Clearing Rocky Land
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          20
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Clearing Tree Planted Land
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          20
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Revisiting Cleared Land
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          10
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <b>
+            Total
+          </b>
+        </td>
+        <td>
+          <b>
+            4
+          </b>
+        </td>
+        <td>
+          <b>
+            60
+          </b>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
