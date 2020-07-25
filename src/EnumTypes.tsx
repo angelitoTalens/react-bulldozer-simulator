@@ -42,3 +42,15 @@ export type Cost = {
     quantity: number;
     value: number;
 }
+
+export type LandVisitSummary = {
+    clearPlainLand: number;
+    revisitClearedLand: number;
+    clearRockyLand: number;
+    clearTreePlantedLand: number;
+}
+
+export type Movements = {
+    command: Commands;
+    steps: number;
+}

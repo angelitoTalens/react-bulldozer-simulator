@@ -4,7 +4,7 @@ import "./styles/GridComponent.scss"
 import BlockComponent from "./BlockComponent"
 import { LandType, Position, Direction } from "./EnumTypes"
 
-import Container from "react-bootstrap/esm/Container";
+import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Col";
 
 type GridComponentProps = {

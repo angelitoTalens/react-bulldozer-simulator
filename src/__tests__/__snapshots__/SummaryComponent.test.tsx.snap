@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test SummaryComponent 1`] = `
+<div>
+  <div
+    className="summary-container container"
+  >
+    <div
+      className="row"
+    >
+       
+      <h3>
+        Test Summary
+      </h3>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="container"
+      >
+        <table
+          className="table table-sm table-striped table-hover"
+        >
+          <thead>
+            <tr>
+              <th>
+                Movements History
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                A1, 
+                A1, 
+                R, 
+                A1, 
+                R, 
+                A1, 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="fuel-usage-container container"
+      >
+        <table
+          className="table table-sm table-striped table-hover"
+        >
+          <thead>
+            <tr>
+              <th
+                style={
+                  Object {
+                    "width": "40%",
+                  }
+                }
+              >
+                Activity
+              </th>
+              <th
+                style={
+                  Object {
+                    "width": "30%",
+                  }
+                }
+              >
+                Visits
+              </th>
+              <th
+                style={
+                  Object {
+                    "width": "30%",
+                  }
+                }
+              >
+                Fuel Usage (fuel units)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Clearing Plain Land
+              </td>
+              <td>
+                2
+              </td>
+              <td>
+                2
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Clearing Rocky Land
+              </td>
+              <td>
+                1
+              </td>
+              <td>
+                2
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Clearing Tree Planted Land
+              </td>
+              <td>
+                1
+              </td>
+              <td>
+                2
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Revisiting Cleared Land
+              </td>
+              <td>
+                0
+              </td>
+              <td>
+                0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>
+                  Total
+                </b>
+              </td>
+              <td>
+                <b>
+                  4
+                </b>
+              </td>
+              <td>
+                <b>
+                  6
+                </b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="total-cost-container container"
+      >
+        <table
+          className="table table-sm table-striped table-hover"
+        >
+          <thead>
+            <tr>
+              <th
+                style={
+                  Object {
+                    "width": "40%",
+                  }
+                }
+              >
+                Item
+              </th>
+              <th
+                style={
+                  Object {
+                    "width": "30%",
+                  }
+                }
+              >
+                Quantity
+              </th>
+              <th
+                style={
+                  Object {
+                    "width": "30%",
+                  }
+                }
+              >
+                Cost (Credit(s))
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Communication Overhead
+              </td>
+              <td>
+                6
+              </td>
+              <td>
+                6
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Fuel Usage
+              </td>
+              <td>
+                6
+              </td>
+              <td>
+                6
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Uncleared Squares
+              </td>
+              <td>
+                4
+              </td>
+              <td>
+                12
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Cleared Preserved Tree(s)
+              </td>
+              <td>
+                0
+              </td>
+              <td>
+                0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Paint Damage Cost
+              </td>
+              <td>
+                0
+              </td>
+              <td>
+                0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>
+                  Total Cost
+                </b>
+              </td>
+              <td />
+              <td>
+                <b>
+                  24
+                </b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
