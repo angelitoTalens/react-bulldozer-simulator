@@ -2,9 +2,9 @@ import React from "react";
 import "./styles/BlockComponent.scss"
 import { LandType } from "./EnumTypes"
 import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowAltCircleRight, faArrowAltCircleLeft, IconDefinition, faArrowAltCircleUp, faArrowAltCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { Direction } from "./EnumTypes";
+
+import bulldozer from "./images/bulldozer.gif"
 
 
 type BlockComponentProps = {
@@ -13,28 +13,31 @@ type BlockComponentProps = {
     direction: Direction;
 }
 
+
+function BulldozerDirection(direction: Direction) {
+    let style = {transform: "rotateY(180deg)"};
+    switch(direction) {
+        case Direction.Left:
+            style = {transform: "none"}
+            break;
+        case Direction.Up:
+            style = {transform: "rotateY(180deg) rotateZ(90deg)"};
+            break;
+        case Direction.Down:
+            style = {transform: "rotateY(180deg) rotateZ(270deg)"};
+            break;
+        default:
+            break; 
+    }
+    return style;
+}
+
 function BlockComponent(props: BlockComponentProps) {
+    
     if (props.currentPos) {
-
-        let directionIcon: IconDefinition = faArrowAltCircleRight;
-        switch(props.direction) {
-            case Direction.Left:
-                directionIcon = faArrowAltCircleLeft;
-                break;
-            case Direction.Up:
-                directionIcon = faArrowAltCircleUp;
-                break;
-            case Direction.Down:
-                directionIcon = faArrowAltCircleDown;
-                break;
-            default:
-                directionIcon = faArrowAltCircleRight;
-                break; 
-        }
-
         return (
             <Col className="block current-block">
-                <FontAwesomeIcon icon={directionIcon}/>
+                <img src={bulldozer} alt="bulldozer" style={BulldozerDirection(props.direction)}/>
             </Col>
         );
     }

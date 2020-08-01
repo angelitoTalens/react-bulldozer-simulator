@@ -24,5 +24,20 @@ exports[`Test NavBarComponent 1`] = `
       Restart
     </a>
   </div>
+  <div
+    className="navbar-nav"
+    onKeyDown={[Function]}
+  >
+    <a
+      className="nav-link"
+      data-rb-event-key={null}
+      href="#"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+    >
+      Load File
+    </a>
+  </div>
 </nav>
 `;

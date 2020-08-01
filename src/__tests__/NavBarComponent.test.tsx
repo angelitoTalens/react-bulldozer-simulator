@@ -8,6 +8,7 @@ test ("Test NavBarComponent", ()  => {
     const component = renderer.create(
         <NavBarComponent
             onRestart={()=>{}}
+            onLoadFile={()=>{}}
         />
     );
 

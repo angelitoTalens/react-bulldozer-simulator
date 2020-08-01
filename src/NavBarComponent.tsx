@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 
 type NavBarComponentProps = {
     onRestart: (event: React.MouseEvent<HTMLAnchorElement>) => void,
+    onLoadFile: (event: React.MouseEvent<HTMLAnchorElement>) => void,
 }
 
 function NavBarComponent(props: NavBarComponentProps) {
@@ -12,6 +13,9 @@ function NavBarComponent(props: NavBarComponentProps) {
             <Navbar.Brand>Site Clearing Simulator</Navbar.Brand>
                 <Nav>
                     <Nav.Link onClick={props.onRestart}>Restart</Nav.Link>
+                </Nav>
+                <Nav>
+                    <Nav.Link onClick={props.onLoadFile}>Load File</Nav.Link>
                 </Nav>
         </Navbar>
     );

@@ -25,7 +25,6 @@ export enum LandType {
 }
 
 export enum SimulationStatus {
-    Start,
     Ongoing,
     NoGrid,
     OutOfBounds,

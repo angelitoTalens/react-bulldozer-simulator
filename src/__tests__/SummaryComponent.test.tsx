@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import SummaryComponent from '../SummaryComponent';
-import { LandType, Movements, Commands } from '../EnumTypes';
+import { Movements, Commands } from '../EnumTypes';
 import { FuelUsageComponentProps } from '../FuelUsageComponent';
 import { TotalCostComponentProps } from '../TotalCostComponent';
 

@@ -40,19 +40,23 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
 
     state: SimulatorState;
     controlComponentRef: React.RefObject<ControlComponent>;
+    fileInputComponentRef: React.RefObject<FileInputComponent>;
 
     constructor(props:SimulatorProps) {
         super(props);
         this.state = this.initState();
+        this.state.gridMap = this.initGrid();
+        this.state.initialGridMap = this.initGrid();
         this.controlComponentRef = React.createRef(); 
+        this.fileInputComponentRef = React.createRef();
     }
 
-    initState():SimulatorState {
+    initState(): SimulatorState {
         let state: SimulatorState = {
             position: {X:-1, Y:0},
             gridMap: [],
             initialGridMap: [],
-            status: SimulationStatus.Start,
+            status: SimulationStatus.Ongoing,
             movementHistory: [],
             landTypeHistory: [],
             paintDamageCount: 0,
@@ -63,6 +67,19 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
         return state;
     }
 
+
+    initGrid() {
+        const gridMap: LandType[][] = [
+            [LandType.Plain, LandType.Rocky, LandType.TreePlanted, LandType.Plain, LandType.Rocky],
+            [LandType.Rocky, LandType.TreePlanted, LandType.Protected, LandType.Rocky, LandType.TreePlanted],
+            [LandType.TreePlanted, LandType.Plain, LandType.Plain, LandType.TreePlanted, LandType.Plain],
+            [LandType.Plain, LandType.Rocky, LandType.TreePlanted, LandType.Plain, LandType.Rocky],
+            [LandType.Rocky, LandType.TreePlanted, LandType.Protected, LandType.Rocky, LandType.TreePlanted],
+        ];
+
+        return gridMap;
+    }
+    
     copyGridMap(source: LandType[][], destination: LandType[][]) {
         for (let row of source) {
             let r: LandType[] = [];
@@ -202,6 +219,7 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
     }
 
     handleFileInput(event: React.ChangeEvent<HTMLInputElement>) {
+
         let state = this.initState();
         
         let fileReader = new FileReader();
@@ -242,8 +260,9 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
             }
 
             this.copyGridMap(state.gridMap, state.initialGridMap);
-
             this.setState(state);
+
+            this.fileInputComponentRef.current?.handleHide();
         };
   
         if ((event.target) && (event.target.files)){
@@ -274,12 +293,12 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
         this.setState(state);
     }
 
-    renderFileInput() {        
-        const show = this.state.status === SimulationStatus.Start;
+    renderFileInput() {
         return (
             <FileInputComponent
-                show={show}
+                show={false}
                 onFileInput={(event)=> this.handleFileInput(event)}
+                ref={this.fileInputComponentRef}
             />
         );
     }
@@ -494,10 +513,7 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
     render() {
 
         let summaryOutput = this.renderSummary("");
-        if (this.state.status === SimulationStatus.Start) {
-            return(this.renderFileInput());
-        }
-        else if (this.state.status === SimulationStatus.NoGrid) {
+        if (this.state.status === SimulationStatus.NoGrid) {
             summaryOutput = this.renderSummary("Empty Grid from Input File");
         }
         else if (this.state.status === SimulationStatus.ClearedProtected) {
@@ -512,7 +528,12 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
 
         return (
             <div>
-                <NavBarComponent onRestart={()=>this.handleRestart()}/>
+                <NavBarComponent
+                    onRestart={()=>this.handleRestart()}
+                    onLoadFile={()=>{
+                        this.fileInputComponentRef.current?.handleShow();
+                    }}
+                />
                 <Tabs activeKey={this.state.tabKey} 
                       onSelect={(key)=> this.handleTabKey(key ? (key as TabKeys) : this.state.tabKey)}
                 >
@@ -523,6 +544,7 @@ class Simulator extends React.Component<SimulatorProps, SimulatorState> {
                          {summaryOutput}
                     </Tab>
                 </Tabs>
+                {this.renderFileInput()}
             </div>
         );
     }
